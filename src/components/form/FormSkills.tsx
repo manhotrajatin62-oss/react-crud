@@ -2,12 +2,8 @@ import { useContext } from "react";
 import { FormContext } from "../../context/FormContext";
 
 const FormSkills = () => {
-  const {
-    setSkillStatus,
-    skills,
-    skillStatus,
-    handleSkillChange,
-  }: any = useContext(FormContext);
+  const { setSkillStatus, skills, skillStatus, handleSkillChange }: any =
+    useContext(FormContext);
 
   const skillsArr = [
     {
@@ -50,7 +46,13 @@ const FormSkills = () => {
         );
       })}
 
-      {skillStatus.status !== "idle" && <p>{skillStatus.message}</p>}
+      {skillStatus.status !== "idle" && (
+        <p
+          className={`${skillStatus.status === "error" ? "text-red-500" : skillStatus.status === "success" ? "text-green-600" : ""}`}
+        >
+          {skillStatus.message}
+        </p>
+      )}
     </div>
   );
 };

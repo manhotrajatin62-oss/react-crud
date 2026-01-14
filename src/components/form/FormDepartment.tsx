@@ -2,8 +2,12 @@ import { useContext } from "react";
 import { FormContext } from "../../context/FormContext";
 
 const FormDepartment = () => {
-  const { department, setDepartment, departmentStatus }: any =
-    useContext(FormContext);
+  const {
+    department,
+    setDepartment,
+    setDepartmentStatus,
+    departmentStatus,
+  }: any = useContext(FormContext);
 
   const optionsArr = [
     {
@@ -31,7 +35,13 @@ const FormDepartment = () => {
         id="department"
         name="department"
         value={department}
-        onChange={(e) => setDepartment(e.target.value)}
+        onChange={(e) => {
+          setDepartment(e.target.value);
+          setDepartmentStatus({
+            status: "idle",
+            message: "",
+          });
+        }}
       >
         <option value="" disabled>
           -select-
@@ -45,7 +55,13 @@ const FormDepartment = () => {
         })}
       </select>
 
-      {departmentStatus.status !== "idle" && <p>{departmentStatus.message}</p>}
+      {departmentStatus.status !== "idle" && (
+        <p
+          className={`${departmentStatus.status === "error" ? "text-red-500" : departmentStatus.status === "success" ? "text-green-600" : ""}`}
+        >
+          {departmentStatus.message}
+        </p>
+      )}
     </div>
   );
 };

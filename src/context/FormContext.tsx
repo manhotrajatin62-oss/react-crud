@@ -1,37 +1,43 @@
-import { createContext } from "react";
-import FormStates from "./FormStates";
+import { createContext, useState } from "react";
 
 export const FormContext: any = createContext({});
 
 const FormContextProvider = ({ children }: any) => {
-  const {
-    name,
-    email,
-    age,
-    gender,
-    skills,
-    department,
-    nameStatus,
-    emailStatus,
-    ageStatus,
-    genderStatus,
-    skillStatus,
-    departmentStatus,
-    isAgree,
-    setIsAgree,
-    setName,
-    setEmail,
-    setAge,
-    setGender,
-    setSkills,
-    setDepartment,
-    setNameStatus,
-    setEmailStatus,
-    setAgeStatus,
-    setGenderStatus,
-    setSkillStatus,
-    setDepartmentStatus,
-  } = FormStates();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [skills, setSkills] = useState([]);
+  const [department, setDepartment] = useState("");
+
+  const [isAgree, setIsAgree] = useState(false);
+
+  const [tableData, setTableData] = useState([]);
+
+  const [nameStatus, setNameStatus] = useState({
+    status: "idle",
+    message: "",
+  });
+  const [emailStatus, setEmailStatus] = useState({
+    status: "idle",
+    message: "",
+  });
+  const [ageStatus, setAgeStatus] = useState({
+    status: "idle",
+    message: "",
+  });
+  const [genderStatus, setGenderStatus] = useState({
+    status: "idle",
+    message: "",
+  });
+  const [skillStatus, setSkillStatus] = useState({
+    status: "idle",
+    message: "",
+  });
+  const [departmentStatus, setDepartmentStatus] = useState({
+    status: "idle",
+    message: "",
+  });
 
   function validateTextField({ value, regex, setStatus, label }: any) {
     if (!value.trim()) {
@@ -183,14 +189,33 @@ const FormContextProvider = ({ children }: any) => {
       "Please select a department",
     );
 
-    console.log(
-      validateName(null, name),
-      validateEmail(null, email),
-      validateAge(null, age),
-      genderValid,
-      skillsValid,
-      departmentValid,
-    );
+    if (
+      !validateName(null, name) ||
+      !validateEmail(null, email) ||
+      !validateAge(null, age) ||
+      !genderValid ||
+      !skillsValid ||
+      !departmentValid
+    )
+      return;
+
+    const newEntry = {
+      id: Date.now(),
+      name,
+      email,
+      age,
+      gender,
+      skills,
+      department,
+    };
+
+    const existingData = JSON.parse(localStorage.getItem("form-data") || "[]");
+
+    const updatedData: any = [...existingData, newEntry];
+
+    localStorage.setItem("form-data", JSON.stringify(updatedData));
+
+    setTableData(updatedData);
   }
 
   return (
@@ -220,8 +245,11 @@ const FormContextProvider = ({ children }: any) => {
         department,
         setDepartment,
         departmentStatus,
+        setDepartmentStatus,
         isAgree,
         setIsAgree,
+        tableData,
+        setTableData,
       }}
     >
       {children}

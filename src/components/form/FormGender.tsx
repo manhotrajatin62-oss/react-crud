@@ -42,7 +42,13 @@ const FormGender = () => {
         );
       })}
 
-      {gender.status !== "idle" && <p>{genderStatus.message}</p>}
+      {genderStatus.status !== "idle" && (
+        <p
+          className={`${genderStatus.status === "error" ? "text-red-500" : genderStatus.status === "success" ? "text-green-600" : ""}`}
+        >
+          {genderStatus.message}
+        </p>
+      )}
     </div>
   );
 };

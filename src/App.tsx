@@ -1,4 +1,5 @@
 import Form from "./components/form/Form";
+import Table from "./components/table/Table";
 
 const App = () => {
   return (
@@ -7,6 +8,7 @@ const App = () => {
 
       <main>
         <Form />
+        <Table/>
       </main>
 
       <footer></footer>

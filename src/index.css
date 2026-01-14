@@ -2,7 +2,7 @@
 
 @layer components {
   .input {
-    @apply border border-black;
+    @apply border border-black outline-0;
   }
 }
 
