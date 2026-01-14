@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer components {
+  .input {
+    @apply border border-black;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
