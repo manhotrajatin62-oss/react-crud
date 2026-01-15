@@ -19,12 +19,12 @@ const FormGender = () => {
 
   return (
     <div className="mb-2">
-      <p className="text-sm">
+      <p className="text-xs lg:text-sm">
         <span className="text-red-500">* </span>Gender
       </p>
 
       {/* gender radio buttons */}
-      <div className="mt-2 flex items-center gap-4">
+      <div className="mt-2 flex text-xs lg:text-sm items-center gap-4">
         {genderArr?.map((item) => {
           return (
             <label className="flex cursor-pointer items-center gap-2" key={item?.value}>

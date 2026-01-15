@@ -22,12 +22,12 @@ const FormSkills = () => {
 
   return (
     <div className="mb-2">
-      <p className="text-sm">
+      <p className="text-xs lg:text-sm">
         <span className="text-red-500">* </span>Skills
       </p>
 
       {/* skills checkbox */}
-      <div className="mt-2 flex items-center gap-4">
+      <div className="mt-2 flex items-center text-xs lg:text-sm flex-wrap lg:flex-nowrap gap-4">
         {skillsArr?.map((item) => {
           return (
             <label className="flex items-center gap-2 cursor-pointer" key={item?.value}>

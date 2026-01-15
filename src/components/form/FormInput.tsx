@@ -9,13 +9,13 @@ const FormInput = ({
 }: any) => {
   return (
     <>
-      <div className="h-20">
+      <div className="h-15 lg:h-20">
 
         {/* input field */}
         <div className="flex flex-col gap-2">
 
           <label htmlFor={label} className="w-fit cursor-pointer">
-            <p className="text-sm">
+            <p className="text-xs lg:text-sm">
               <span className="text-red-500">* </span>
               {heading}
             </p>

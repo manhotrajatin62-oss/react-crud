@@ -203,8 +203,8 @@ const FormContextProvider = ({ children }: any) => {
     );
 
     if (
-      (!validateName(null, name) &&
-        !validateEmail(null, email) &&
+      (!validateName(null, name) ||
+        !validateEmail(null, email) ||
         !validateAge(null, age)) ||
       !genderValid ||
       !skillsValid ||

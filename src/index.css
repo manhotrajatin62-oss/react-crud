@@ -11,16 +11,16 @@
 
 @layer components {
   .input {
-    @apply border-2 bg-white border-gray-300 h-10 px-4 focus:border-black text-sm rounded outline-0;
+    @apply border-2 bg-white border-gray-300 h-8 lg:h-10 px-4 focus:border-black text-xs lg:text-sm rounded outline-0;
   }
   .error-msg{
-    @apply text-sm
+    @apply text-xs lg:text-sm
   }
   .radio{
-    @apply grid h-4 w-4 appearance-none place-content-center rounded-full border border-black bg-white transition before:h-2 before:w-2 before:scale-0 cursor-pointer before:rounded-full before:bg-black before:content-[''] checked:before:scale-100
+    @apply grid h-3 w-3 lg:h-4 lg:w-4 appearance-none place-content-center rounded-full border border-black bg-white transition before:h-1.5 before:w-1.5 lg:before:h-2 lg:before:w-2 before:scale-0 cursor-pointer before:rounded-full before:bg-black before:content-[''] checked:before:scale-100
   }
   .checkbox{
-    @apply grid h-4 w-4 appearance-none place-content-center rounded border border-black bg-white after:scale-0 after:text-xs after:text-white after:content-['✓'] checked:border-black checked:bg-black checked:after:scale-100 cursor-pointer
+    @apply grid h-3 w-3 lg:h-4 lg:w-4 appearance-none place-content-center rounded border border-black bg-white after:scale-0 after:text-xs after:text-white after:content-['✓'] checked:border-black checked:bg-black checked:after:scale-100 cursor-pointer
   }
   .dropdown{
     @apply h-full w-full cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white px-4 outline-0 focus:border-black

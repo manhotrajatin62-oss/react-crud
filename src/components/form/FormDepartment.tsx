@@ -30,15 +30,15 @@ const FormDepartment = () => {
   return (
     <div className="flex flex-col mb-2 items-start gap-2">
       <label htmlFor="department" className="cursor-pointer">
-        <p className="text-sm">
+        <p className="text-xs lg:text-sm">
           <span className="text-red-500">* </span>Department
         </p>
       </label>
 
       {/* department dropdown */}
-      <div className="relative h-10 w-full">
+      <div className="relative h-8  lg:h-10 w-full">
         <select
-          className="h-full text-sm w-full cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white px-4 outline-0 focus:border-black"
+          className="h-full text-xs lg:text-sm w-full cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white px-4 outline-0 focus:border-black"
           id="department"
           name="department"
           value={department}

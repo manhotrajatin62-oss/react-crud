@@ -22,8 +22,13 @@ const Form = () => {
   }: any = useContext(FormContext);
 
   return (
-    <form onSubmit={submitForm} className="flex bg-light-white/70 shadow shadow-gray-400 w-150 mx-auto mt-20 rounded-2xl py-10 px-15 flex-col gap-4">
-      <h1 className="font-semibold mb-5 text-center text-2xl">FORM</h1>
+    <form
+      onSubmit={submitForm}
+      className="bg-light-white/70 mx-auto mt-20 flex w-[90%] flex-col gap-4 rounded-2xl p-4 shadow shadow-gray-400 lg:w-150 lg:px-15 lg:py-10"
+    >
+      <h1 className="text-center text-xl font-semibold mt-5 lg:mt-0 lg:mb-5 lg:text-2xl">
+        FORM
+      </h1>
       {/* name field */}
 
       <FormInput
@@ -70,9 +75,12 @@ const Form = () => {
       <FormDepartment />
 
       {/* terms & conditions */}
-      <label className="flex items-center w-fit gap-2 cursor-pointer" htmlFor="terms">
+      <label
+        className="flex w-fit text-xs lg:text-sm cursor-pointer items-center gap-2"
+        htmlFor="terms"
+      >
         <input
-        className="checkbox"
+          className="checkbox"
           onChange={() => setIsAgree(!isAgree)}
           type="checkbox"
           checked={isAgree}
@@ -80,13 +88,14 @@ const Form = () => {
           name="terms"
           id="terms"
         />
-        By clicking this, you agree to our <span className="font-semibold">Terms & Conditions</span>
+        <p>By clicking this, you agree to our{" "}
+        <span className="font-semibold">Terms & Conditions</span></p>
       </label>
 
       {/* submit button */}
       <button
         disabled={!isAgree}
-        className="w-full h-10 cursor-pointer bg-black rounded mt-5 text-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-400"
+        className="mt-5 mb-5 lg:mb-0 h-8 lg:h-10 w-full text-xs lg:text-sm cursor-pointer rounded bg-black text-white disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400"
         type="submit"
         value="submit"
       >
