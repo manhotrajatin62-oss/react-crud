@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { toast } from "react-toastify";
 
 export const FormContext: any = createContext({});
 
@@ -41,7 +42,7 @@ const FormContextProvider = ({ children }: any) => {
   const [tableData, setTableData] = useState([]); // table data
   const [editingId, setEditingId] = useState(null); // which row ID is being edited in the table data
 
-  const [modalType, setModalType] = useState(""); // modal type : deleteModal , viewModal
+  const [modalType, setModalType] = useState(""); // modal type : deleteModal , viewModal, clearDataModal
   const [selectedRow, setSelectedRow] = useState<any>(); // keep a single row for viewModal
   const [showModal, setShowModal] = useState(false); // show/hide modal
   const [deleteId, setDeleteId] = useState(null); // which row ID to delete from the table
@@ -201,7 +202,6 @@ const FormContextProvider = ({ children }: any) => {
       "Please select a department",
     );
 
-    // if all input fields are empty; show error message
     if (
       (!validateName(null, name) &&
         !validateEmail(null, email) &&
@@ -213,9 +213,12 @@ const FormContextProvider = ({ children }: any) => {
       return;
 
     const existingData = JSON.parse(localStorage.getItem("form-data") || "[]");
+
+    const isEdit = Boolean(editingId);
+
     let updatedData;
 
-    if (editingId) {
+    if (isEdit) {
       updatedData = existingData.map((item: any) =>
         item.id === editingId
           ? { ...item, name, email, age, gender, department, skills }
@@ -237,47 +240,33 @@ const FormContextProvider = ({ children }: any) => {
     }
 
     localStorage.setItem("form-data", JSON.stringify(updatedData));
-
     setTableData(updatedData);
-
     setEditingId(null);
 
-    // clear all error states
+    if (isEdit) {
+      toast.success("Form edited successfully");
+    } else {
+      toast.success("Form submitted successfully");
+    }
+
+    // clear form & status
     setName("");
-    setNameStatus({
-      status: "idle",
-      message: "",
-    });
+    setNameStatus({ status: "idle", message: "" });
 
     setEmail("");
-    setEmailStatus({
-      status: "idle",
-      message: "",
-    });
+    setEmailStatus({ status: "idle", message: "" });
 
     setAge("");
-    setAgeStatus({
-      status: "idle",
-      message: "",
-    });
+    setAgeStatus({ status: "idle", message: "" });
 
     setGender("");
-    setGenderStatus({
-      status: "idle",
-      message: "",
-    });
+    setGenderStatus({ status: "idle", message: "" });
 
     setSkills([]);
-    setSkillStatus({
-      status: "idle",
-      message: "",
-    });
+    setSkillStatus({ status: "idle", message: "" });
 
     setDepartment("");
-    setDepartmentStatus({
-      status: "idle",
-      message: "",
-    });
+    setDepartmentStatus({ status: "idle", message: "" });
 
     setIsAgree(false);
   }

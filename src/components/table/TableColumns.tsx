@@ -2,6 +2,7 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { FormContext } from "../../context/FormContext";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 const TableColumns = () => {
   const {
     setName,
@@ -32,9 +33,10 @@ const TableColumns = () => {
   }
 
   // FUNCTION to delete all data
-   function clearData() {
+  function clearData() {
     setTableData([]);
     localStorage.clear();
+    toast.error("Data cleared successfully");
   }
 
   // function to delete single row data
@@ -45,6 +47,7 @@ const TableColumns = () => {
 
     setTableData(newData);
     localStorage.setItem("form-data", JSON.stringify(newData));
+    toast.error("Data deleted successfully");
   }
 
   const customStyles = {
@@ -95,14 +98,14 @@ const TableColumns = () => {
       cell: (row: any) => (
         <div className="flex items-center gap-4">
           <FaEdit
-          size={15}
-          title="Edit"
+            size={15}
+            title="Edit"
             onClick={() => setDataInForm(row)}
             className="cursor-pointer"
           />
           <MdDelete
-          size={15}
-          title="Delete"
+            size={15}
+            title="Delete"
             className="cursor-pointer"
             onClick={() => {
               setSelectedRow(row);
@@ -111,8 +114,8 @@ const TableColumns = () => {
             }}
           />
           <FaEye
-          title="View"
-          size={15}
+            title="View"
+            size={15}
             className="cursor-pointer"
             onClick={() => {
               setSelectedRow(row);
@@ -126,7 +129,7 @@ const TableColumns = () => {
     },
   ];
 
-  return {columns, deleteTableData, clearData, customStyles};
+  return { columns, deleteTableData, clearData, customStyles };
 };
 
 export default TableColumns;

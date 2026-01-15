@@ -13,6 +13,7 @@ const Table = () => {
     selectedRow,
     showModal,
     setShowModal,
+    setModalType,
   }: any = useContext(FormContext);
 
   const { columns, deleteTableData, clearData, customStyles } = TableColumns();
@@ -25,14 +26,23 @@ const Table = () => {
   return (
     <>
       {/* table data */}
-      <section className="mx-auto my-10 shadow shadow-gray-400 flex w-[95%] flex-col rounded-lg bg-white p-5">
-        <DataTable columns={columns} data={tableData} customStyles={customStyles} />
-      {tableData.length >=1 &&  <button
-          className="flex mt-4 gap-1 cursor-pointer items-center self-end rounded-2xl bg-gray-200 hover:bg-gray-300 px-3 py-1.5 text-xs"
-          onClick={clearData}
-        >
-          <MdDeleteForever size={20} /> Clear Table
-        </button>}
+      <section className="mx-auto my-10 flex w-[95%] flex-col rounded-lg bg-white p-5 shadow shadow-gray-400">
+        <DataTable
+          columns={columns}
+          data={tableData}
+          customStyles={customStyles}
+        />
+        {tableData.length >= 1 && (
+          <button
+            className="mt-4 flex cursor-pointer items-center gap-1 self-end rounded-2xl bg-gray-200 px-3 py-1.5 text-xs hover:bg-gray-300"
+            onClick={() => {
+              setModalType("clear");
+              setShowModal(true);
+            }}
+          >
+            <MdDeleteForever size={20} /> Clear Table
+          </button>
+        )}
       </section>
 
       {/* modal section */}
@@ -54,10 +64,15 @@ const Table = () => {
               <p className="text-lg">
                 Do you want to delete <b>{selectedRow?.name}</b>?
               </p>
-              <div className="flex items-center justify-end mt-15 gap-10">
-                <button className="cursor-pointer" onClick={() => setShowModal(false)}>Cancel</button>
+              <div className="mt-15 flex items-center justify-end gap-10">
                 <button
-                className="bg-black text-white py-2 px-3 cursor-pointer rounded-lg"
+                  className="cursor-pointer"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="cursor-pointer rounded-lg bg-black px-3 py-2 text-white"
                   onClick={() => {
                     deleteTableData(selectedRow.id);
                     setShowModal(false);
@@ -71,13 +86,38 @@ const Table = () => {
 
           {modalType === "view" && (
             <>
-              <h3 className="font-semibold text-xl mb-4">User Details</h3>
+              <h3 className="mb-4 text-xl font-semibold">User Details</h3>
               <p>Name: {selectedRow?.name}</p>
               <p>Email: {selectedRow?.email}</p>
               <p>Age: {selectedRow?.age}</p>
               <p>Department: {selectedRow?.department}</p>
               <p>Gender: {selectedRow?.gender}</p>
               <p>Skills: {selectedRow?.skills.join(", ")}</p>
+            </>
+          )}
+
+          {modalType === "clear" && (
+            <>
+              <p className="text-lg">
+                Do you want to delete all <b>Table Data</b>?
+              </p>
+              <div className="mt-15 flex items-center justify-end gap-10">
+                <button
+                  className="cursor-pointer"
+                  onClick={() => setShowModal(false)}
+                >
+                  No
+                </button>
+                <button
+                  className="cursor-pointer rounded-lg bg-black px-3 py-2 text-white"
+                  onClick={() => {
+                    clearData();
+                    setShowModal(false);
+                  }}
+                >
+                  Yes
+                </button>
+              </div>
             </>
           )}
         </Modal>
