@@ -3,6 +3,7 @@ import { createContext, useState } from "react";
 export const FormContext: any = createContext({});
 
 const FormContextProvider = ({ children }: any) => {
+  // form input states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
@@ -10,10 +11,7 @@ const FormContextProvider = ({ children }: any) => {
   const [skills, setSkills] = useState([]);
   const [department, setDepartment] = useState("");
 
-  const [isAgree, setIsAgree] = useState(false);
-
-  const [tableData, setTableData] = useState([]);
-
+  // form input error message states
   const [nameStatus, setNameStatus] = useState({
     status: "idle",
     message: "",
@@ -39,6 +37,16 @@ const FormContextProvider = ({ children }: any) => {
     message: "",
   });
 
+  const [isAgree, setIsAgree] = useState(false); // terms & conditions checkbox
+  const [tableData, setTableData] = useState([]); // table data
+  const [editingId, setEditingId] = useState(null); // which row ID is being edited in the table data
+
+  const [modalType, setModalType] = useState(""); // modal type : deleteModal , viewModal
+  const [selectedRow, setSelectedRow] = useState<any>(); // keep a single row for viewModal
+  const [showModal, setShowModal] = useState(false); // show/hide modal
+  const [deleteId, setDeleteId] = useState(null); // which row ID to delete from the table
+
+  // validate name and email
   function validateTextField({ value, regex, setStatus, label }: any) {
     if (!value.trim()) {
       setStatus({ status: "error", message: `${label} is required` });
@@ -87,6 +95,7 @@ const FormContextProvider = ({ children }: any) => {
     });
   }
 
+  // validate age
   function validateAge(e: any, value: any) {
     let age;
     if (e) {
@@ -136,6 +145,7 @@ const FormContextProvider = ({ children }: any) => {
     return true;
   }
 
+  // update skills in the skills state
   function handleSkillChange(e: any) {
     const { value, checked } = e.target;
 
@@ -148,6 +158,7 @@ const FormContextProvider = ({ children }: any) => {
     });
   }
 
+  // validate gender, skills, department sections
   function validateGenderSkillsDepartment(
     isInvalid: any,
     setStatus: any,
@@ -168,6 +179,7 @@ const FormContextProvider = ({ children }: any) => {
     return true;
   }
 
+  // submit form
   function submitForm(e: any) {
     e.preventDefault();
 
@@ -189,33 +201,85 @@ const FormContextProvider = ({ children }: any) => {
       "Please select a department",
     );
 
+    // if all input fields are empty; show error message
     if (
-      !validateName(null, name) ||
-      !validateEmail(null, email) ||
-      !validateAge(null, age) ||
+      (!validateName(null, name) &&
+        !validateEmail(null, email) &&
+        !validateAge(null, age)) ||
       !genderValid ||
       !skillsValid ||
       !departmentValid
     )
       return;
 
-    const newEntry = {
-      id: Date.now(),
-      name,
-      email,
-      age,
-      gender,
-      skills,
-      department,
-    };
-
     const existingData = JSON.parse(localStorage.getItem("form-data") || "[]");
+    let updatedData;
 
-    const updatedData: any = [...existingData, newEntry];
+    if (editingId) {
+      updatedData = existingData.map((item: any) =>
+        item.id === editingId
+          ? { ...item, name, email, age, gender, department, skills }
+          : item,
+      );
+    } else {
+      updatedData = [
+        ...existingData,
+        {
+          id: Date.now(),
+          name,
+          email,
+          age,
+          gender,
+          department,
+          skills,
+        },
+      ];
+    }
 
     localStorage.setItem("form-data", JSON.stringify(updatedData));
 
     setTableData(updatedData);
+
+    setEditingId(null);
+
+    // clear all error states
+    setName("");
+    setNameStatus({
+      status: "idle",
+      message: "",
+    });
+
+    setEmail("");
+    setEmailStatus({
+      status: "idle",
+      message: "",
+    });
+
+    setAge("");
+    setAgeStatus({
+      status: "idle",
+      message: "",
+    });
+
+    setGender("");
+    setGenderStatus({
+      status: "idle",
+      message: "",
+    });
+
+    setSkills([]);
+    setSkillStatus({
+      status: "idle",
+      message: "",
+    });
+
+    setDepartment("");
+    setDepartmentStatus({
+      status: "idle",
+      message: "",
+    });
+
+    setIsAgree(false);
   }
 
   return (
@@ -232,6 +296,7 @@ const FormContextProvider = ({ children }: any) => {
         validateEmail,
         setSkillStatus,
         age,
+        setAge,
         ageStatus,
         validateAge,
         gender,
@@ -250,6 +315,15 @@ const FormContextProvider = ({ children }: any) => {
         setIsAgree,
         tableData,
         setTableData,
+        setEditingId,
+        modalType,
+        setModalType,
+        selectedRow,
+        setSelectedRow,
+        deleteId,
+        setDeleteId,
+        showModal,
+        setShowModal,
       }}
     >
       {children}

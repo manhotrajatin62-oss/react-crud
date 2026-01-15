@@ -31,6 +31,7 @@ const FormDepartment = () => {
     <div>
       <label htmlFor="department">* Department</label>
 
+      {/* department dropdown */}
       <select
         id="department"
         name="department"
@@ -54,6 +55,8 @@ const FormDepartment = () => {
           );
         })}
       </select>
+
+      {/* error message */}
 
       {departmentStatus.status !== "idle" && (
         <p

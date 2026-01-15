@@ -24,6 +24,7 @@ const FormSkills = () => {
     <div>
       <p>* Skills</p>
 
+      {/* skills checkbox */}
       {skillsArr?.map((item) => {
         return (
           <label key={item?.value}>
@@ -46,6 +47,7 @@ const FormSkills = () => {
         );
       })}
 
+      {/* error message */}
       {skillStatus.status !== "idle" && (
         <p
           className={`${skillStatus.status === "error" ? "text-red-500" : skillStatus.status === "success" ? "text-green-600" : ""}`}

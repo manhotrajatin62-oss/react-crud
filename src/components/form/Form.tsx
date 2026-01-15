@@ -21,7 +21,6 @@ const Form = () => {
     setIsAgree,
   }: any = useContext(FormContext);
 
-
   return (
     <form onSubmit={submitForm} className="flex flex-col gap-4">
       <h1>FORM</h1>
@@ -65,16 +64,28 @@ const Form = () => {
       <FormSkills />
 
       {/* department dropdown */}
-      <FormDepartment/>
+      <FormDepartment />
 
       {/* terms & conditions */}
       <label htmlFor="terms">
-        <input onChange={()=>setIsAgree(!isAgree)} type="checkbox" value="agree" name="terms" id="terms" />
+        <input
+          onChange={() => setIsAgree(!isAgree)}
+          type="checkbox"
+          checked={isAgree}
+          value="agree"
+          name="terms"
+          id="terms"
+        />
         By clicking this, you agree to our terms & conditions
       </label>
 
       {/* submit button */}
-      <button disabled={!isAgree} className="disabled:bg-black w-fit" type="submit" value="submit">
+      <button
+        disabled={!isAgree}
+        className="w-fit disabled:bg-black"
+        type="submit"
+        value="submit"
+      >
         Submit
       </button>
     </form>

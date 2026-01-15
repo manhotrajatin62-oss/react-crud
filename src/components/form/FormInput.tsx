@@ -2,6 +2,8 @@ const FormInput = ({ label, heading, value, onChange, type, status }: any) => {
   return (
     <>
       <div>
+
+        {/* input field */}
         <label htmlFor={label}>
           {heading}
           <input
@@ -15,6 +17,7 @@ const FormInput = ({ label, heading, value, onChange, type, status }: any) => {
           />
         </label>
 
+        {/* error message */}
         {status.status !== "idle" && (
           <p
             className={`${status.status === "error" ? "text-red-500" : status.status === "success" ? "text-green-600" : ""}`}

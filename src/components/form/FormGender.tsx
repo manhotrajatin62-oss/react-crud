@@ -21,6 +21,7 @@ const FormGender = () => {
     <div>
       <p>* Gender</p>
 
+      {/* gender radio buttons */}
       {genderArr?.map((item) => {
         return (
           <label key={item?.value}>
@@ -42,6 +43,7 @@ const FormGender = () => {
         );
       })}
 
+      {/* error message */}
       {genderStatus.status !== "idle" && (
         <p
           className={`${genderStatus.status === "error" ? "text-red-500" : genderStatus.status === "success" ? "text-green-600" : ""}`}
