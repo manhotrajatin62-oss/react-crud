@@ -1,12 +1,38 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Inter";
+  src: url(assets/Inter-VariableFont_opsz,wght.ttf);
+}
+
+@theme{
+  --color-light-white: #f9fbfc;
+}
+
 @layer components {
   .input {
-    @apply border border-black outline-0;
+    @apply border-2 bg-white border-gray-300 h-10 px-4 focus:border-black text-sm rounded outline-0;
+  }
+  .error-msg{
+    @apply text-sm
+  }
+  .radio{
+    @apply grid h-4 w-4 appearance-none place-content-center rounded-full border border-black bg-white transition before:h-2 before:w-2 before:scale-0 cursor-pointer before:rounded-full before:bg-black before:content-[''] checked:before:scale-100
+  }
+  .checkbox{
+    @apply grid h-4 w-4 appearance-none place-content-center rounded border border-black bg-white after:scale-0 after:text-xs after:text-white after:content-['✓'] checked:border-black checked:bg-black checked:after:scale-100 cursor-pointer
+  }
+  .dropdown{
+    @apply h-full w-full cursor-pointer appearance-none rounded border-2 border-gray-300 bg-white px-4 outline-0 focus:border-black
   }
 }
 
 * {
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: "Inter", sans-serif;
+}
+
+body{
+  background-image: url(assets/bg.jpg);
+  background-size: cover;
 }

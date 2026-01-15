@@ -47,6 +47,16 @@ const TableColumns = () => {
     localStorage.setItem("form-data", JSON.stringify(newData));
   }
 
+  const customStyles = {
+    headCells: {
+      style: {
+        color: "#7B809A",
+        fontWeight: "700",
+        fontSize: "0.75rem",
+      },
+    },
+  };
+
   const columns = [
     {
       name: "NAME",
@@ -85,10 +95,14 @@ const TableColumns = () => {
       cell: (row: any) => (
         <div className="flex items-center gap-4">
           <FaEdit
+          size={15}
+          title="Edit"
             onClick={() => setDataInForm(row)}
             className="cursor-pointer"
           />
           <MdDelete
+          size={15}
+          title="Delete"
             className="cursor-pointer"
             onClick={() => {
               setSelectedRow(row);
@@ -97,6 +111,8 @@ const TableColumns = () => {
             }}
           />
           <FaEye
+          title="View"
+          size={15}
             className="cursor-pointer"
             onClick={() => {
               setSelectedRow(row);
@@ -110,7 +126,7 @@ const TableColumns = () => {
     },
   ];
 
-  return {columns, deleteTableData, clearData};
+  return {columns, deleteTableData, clearData, customStyles};
 };
 
 export default TableColumns;

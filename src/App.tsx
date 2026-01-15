@@ -4,14 +4,14 @@ import Table from "./components/table/Table";
 const App = () => {
   return (
     <>
-      <header></header>
+
 
       <main>
         <Form />
         <Table/>
       </main>
 
-      <footer></footer>
+
     </>
   );
 };

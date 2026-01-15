@@ -22,13 +22,14 @@ const Form = () => {
   }: any = useContext(FormContext);
 
   return (
-    <form onSubmit={submitForm} className="flex flex-col gap-4">
-      <h1>FORM</h1>
+    <form onSubmit={submitForm} className="flex bg-light-white/70 shadow shadow-gray-400 w-150 mx-auto mt-20 rounded-2xl py-10 px-15 flex-col gap-4">
+      <h1 className="font-semibold mb-5 text-center text-2xl">FORM</h1>
       {/* name field */}
 
       <FormInput
         label={"name"}
-        heading={"* Employee Name"}
+        heading={"Employee Name"}
+        placeholder={"Name"}
         value={name}
         onChange={validateName}
         type={"text"}
@@ -39,7 +40,8 @@ const Form = () => {
 
       <FormInput
         label={"email"}
-        heading={"* Email"}
+        heading={"Email Address"}
+        placeholder={"Email"}
         value={email}
         onChange={validateEmail}
         type={"email"}
@@ -50,7 +52,8 @@ const Form = () => {
 
       <FormInput
         label={"age"}
-        heading={"* Age"}
+        heading={"Age"}
+        placeholder={"Age"}
         value={age}
         onChange={validateAge}
         type={"text"}
@@ -67,8 +70,9 @@ const Form = () => {
       <FormDepartment />
 
       {/* terms & conditions */}
-      <label htmlFor="terms">
+      <label className="flex items-center w-fit gap-2 cursor-pointer" htmlFor="terms">
         <input
+        className="checkbox"
           onChange={() => setIsAgree(!isAgree)}
           type="checkbox"
           checked={isAgree}
@@ -76,13 +80,13 @@ const Form = () => {
           name="terms"
           id="terms"
         />
-        By clicking this, you agree to our terms & conditions
+        By clicking this, you agree to our <span className="font-semibold">Terms & Conditions</span>
       </label>
 
       {/* submit button */}
       <button
         disabled={!isAgree}
-        className="w-fit disabled:bg-black"
+        className="w-full h-10 cursor-pointer bg-black rounded mt-5 text-white disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-gray-400"
         type="submit"
         value="submit"
       >
